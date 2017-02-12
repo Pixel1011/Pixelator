@@ -1,5 +1,5 @@
 exports.run = function(bot, msg, args, guild) {
-  offline = [];
+offline = [];
 
   for(member in msg.guild.members.array()) {
        user = msg.guild.members.array()[member];
@@ -7,14 +7,14 @@ exports.run = function(bot, msg, args, guild) {
   }
 
   if( !msg.guild.available ) {
-  return msg.reply("An error ocurred, please try again");
+    return msg.reply("An error ocurred, please try again");
   }
 
   var embed = {
     title: `Info about ${msg.guild.name}`,
-  color: 0x00f731,
+    color: 0x00f731,
     thumbnail: {
-    url: msg.guild.iconURL
+      url: msg.guild.iconURL
     },
 
     fields: [
@@ -30,14 +30,14 @@ exports.run = function(bot, msg, args, guild) {
         inline: true
       },
       {
-       name: 'Default Channel:',
-       value: `#${msg.guild.defaultChannel.name}`,
-       inline: true
+        name: 'Default Channel:',
+        value: `#${msg.guild.defaultChannel.name}`,
+        inline: true
       },
       {
-       name: 'Creation Date:',
-       value: msg.guild.createdAt,
-       inline: true
+        name: 'Creation Date:',
+        value: msg.guild.createdAt,
+        inline: true
       },
       {
         name: 'Region:',
@@ -55,20 +55,20 @@ exports.run = function(bot, msg, args, guild) {
         inline: true
       },
       {
-       name: 'Channels',
-       value: msg.guild.channels.size,
-       inline: true
+        name: 'Channels',
+        value: msg.guild.channels.size,
+        inline: true
       },
       {
         name: 'Roles:',
-        value: msg.guild.roles.map(r=>r.name).join(", "),
+        value: msg.guild.roles.map(r=>r.name).join(', '),
         inline: true
       },
     ]
 
-  }
+  };
 
-  msg.channel.sendEmbed(embed).then(msg => msg).catch(error => console.log(`AHH SERVERINFO!!!!!, ${error}`))
+  msg.channel.sendEmbed(embed).then(msg => msg).catch(error => console.log(`AHH SERVERINFO!!!!!, ${error}`));
 };
 
 exports.help = {

@@ -1,7 +1,7 @@
-exports.run = function(bot, msg, args) {
-	msg.channel.sendMessage('Pong!').then(msg2 => {
-  msg2.edit(`Pong! \`${msg2.createdTimestamp - msg.createdTimestamp}ms\``);
-   })
+exports.run = function(bot, msg) {
+  msg.channel.sendMessage('Pong!').then(msg2 => {
+    msg2.edit(`Pong! \`${msg2.createdTimestamp - msg.createdTimestamp}ms\``);
+  });
 };
 
 exports.help = {

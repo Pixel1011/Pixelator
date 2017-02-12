@@ -1,6 +1,6 @@
 exports.run = function(bot, msg, args) {
-  if(msg.author.id !== "192372019378126849") return;
-  msg.channel.sendMessage(args.join(" "));
+  if(msg.author.id !== '192372019378126849') return;
+  msg.channel.sendMessage(args.join(' '));
 };
 
 exports.help = {
