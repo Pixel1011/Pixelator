@@ -1,13 +1,7 @@
-exports.run = function(bot, msg, args){
+exports.run = function(client, msg, args){
   var e = (args.join(' '));
-  msg.channel.sendMessage(`2 Nukes Have Been Launched To ${e}'s location`);
+  msg.channel.sendMessage(`a tornado has been created and sent to ${e}'s location`);
   setTimeout(function () {
-    msg.channel.sendMessage(`***${e} Gets Blown Up***`);
+    msg.channel.sendMessage(`***${e} Gets horribly killed in a tornado***`);
   }, 5000);
-};
-
-exports.help = {
-  name: 'murder',
-  description: 'murder\'s someone',
-  usage: 'murder Pixel'
 };

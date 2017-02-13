@@ -13,27 +13,27 @@ exports.run = (client, msg = []) => {
       {
         name: 'Uptime:',
         value: `${client.uptime}`,
-        inline: false
+        inline: true
       },
       {
         name: 'Users:',
         value: `${client.guilds.users}`,
-        inline: false
+        inline: true
       },
       {
         name: 'Servers::',
         value: `${client.guilds.size}`,
-        inline: false
+        inline: true
       },
       {
         name: 'Channels:',
         value: `${client.channels.size}`,
-        inline: false
+        inline: true
       },
       {
         name: 'Discord.js:',
         value: `v${Discord.version}`,
-        inline: false
+        inline: true
       },
 
 
@@ -42,10 +42,4 @@ exports.run = (client, msg = []) => {
   };
 
   msg.channel.sendEmbed(embed);
-};
-
-exports.help = {
-  name: 'stats',
-  description: 'shows stats for the bot',
-  usage: 'stats'
 };

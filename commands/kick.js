@@ -1,4 +1,4 @@
-exports.run = function(bot, msg) {
+exports.run = function(client, msg) {
   let modRole = msg.guild.roles.find('name', 'Bot Controller');
   if(!msg.member.roles.has(modRole.id)) {
     return msg.reply(':no_entry_sign: You Must Have The Role ``Bot Controller`` To Use This Command!');
@@ -16,10 +16,4 @@ exports.run = function(bot, msg) {
   kickMember.kick().then(member => {
     msg.reply(`:white_check_mark: ${member.user.username} was succesfully kicked.`);
   });
-};
-
-exports.help = {
-  name: 'kick',
-  description: 'kicks the @mentioned user',
-  usage: 'kick @Pixel'
 };

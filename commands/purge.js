@@ -1,4 +1,4 @@
-exports.run = function(bot, msg, args) {
+exports.run = function(client, msg, args) {
   let modRole = msg.guild.roles.find('name', 'Bot Controller');
   if(msg.member.roles.has(modRole.id)) {
     let msgcount = parseInt(args.join(' '));
@@ -9,17 +9,4 @@ exports.run = function(bot, msg, args) {
   } else {
     msg.reply('you don\'t have the permission to use this command.');
   }
-};
-
-exports.help = {
-  name: 'purge',
-  description: 'purges X amount of messages',
-  usage: 'purge 20'
-};
-
-exports.conf = {
-  enabled: true,
-  guildOnly: false,
-  aliases: [],
-  permLevel: 2
 };

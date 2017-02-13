@@ -1,4 +1,4 @@
-exports.run = function(bot, msg, args, guild) {
+exports.run = function(client, msg, args, guild) {
 offline = [];
 
   for(member in msg.guild.members.array()) {
@@ -69,10 +69,4 @@ offline = [];
   };
 
   msg.channel.sendEmbed(embed).then(msg => msg).catch(error => console.log(`AHH SERVERINFO!!!!!, ${error}`));
-};
-
-exports.help = {
-  name: 'serverinfo',
-  description: 'shows the info of a server',
-  usage: 'serverinfo'
 };

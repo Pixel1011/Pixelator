@@ -1,17 +1,11 @@
-exports.run = function(bot, msg) {
+exports.run = function(client, msg, ErrorChannel) {
   let voiceChan = msg.member.voiceChannel;
   if (!voiceChan) {
     msg.channel.sendMessage('You are not in a voicechannel!');
   } else {
-    msg.channel.sendMessage('Leaving...').then(msg2 => {
+    msg.channel.sendMessage('Leaving...').then(m => {
       voiceChan.leave();
-      msg2.edit(`left ${voiceChan}`);
-    }).catch(error => msg.channel.sendMessage(error));
+      m.edit(`left ${voiceChan}`);
+    }).catch(error => ErrorChannel.sendMessage(`help command: ${error}`));
   }
-};
-
-exports.help = {
-  name: 'vleave',
-  description: 'makes the bot leave the voice channel',
-  usage: 'vleave'
 };

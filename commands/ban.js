@@ -1,4 +1,4 @@
-exports.run = function(bot, msg) {
+exports.run = function(client, msg) {
   let modRole = msg.guild.roles.find('name', 'Bot Controller');
   if(!msg.member.roles.has(modRole.id)) {
     return msg.reply(':no_entry_sign: You Must Have The Role ``Bot Controller`` To Use This Command!');
@@ -16,10 +16,4 @@ exports.run = function(bot, msg) {
   banMember.ban().then(member => {
     msg.reply(`:white_check_mark:${member.user.username} was succesfully Banned`);
   });
-};
-
-exports.help = {
-  name: 'ban',
-  description: 'bans the @mentioned user',
-  usage: 'ban @Pixel'
 };
