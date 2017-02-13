@@ -1,9 +1,9 @@
-const reqEvent = (event) => require(`../events/${event}`)
-module.exports = bot => {
-	bot.on('ready', () => reqEvent('ready')(bot));
-	bot.on('reconnecting', () => reqEvent('reconnecting')(bot));
-	bot.on('disconnect', () => reqEvent('disconnect')(bot));
-	bot.on('message', reqEvent('message'));
-	/*bot.on('guildCreate', reqEvent('guildCreate'));
-	bot.on('guildDelete', reqEvent('guildDelete'));*/
+const reqEvent = (event) => require(`../events/${event}`);
+module.exports = client => {
+  client.on('ready', () => reqEvent('ready')(client));
+  client.on('reconnecting', () => reqEvent('reconnecting')(client));
+  client.on('disconnect', () => reqEvent('disconnect')(client));
+  client.on('message', reqEvent('message'));
+  client.on('guildCreate', reqEvent('guildCreate'));
+  client.on('guildDelete', reqEvent('guildDelete'));
 };
