@@ -7,7 +7,7 @@ exports.run = (client, msg = []) => {
 
       {
         name: 'Mem Usage:',
-        value: `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`,
+        value: `${process.memoryUsage().rss/1024/1024} MB`,
         inline: true
       },
       {
@@ -17,11 +17,11 @@ exports.run = (client, msg = []) => {
       },
       {
         name: 'Users:',
-        value: `${client.guilds.users}`,
+        value: `${client.users.size}`,
         inline: true
       },
       {
-        name: 'Servers::',
+        name: 'Servers:',
         value: `${client.guilds.size}`,
         inline: true
       },

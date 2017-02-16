@@ -1,3 +1,4 @@
+const Discord = require('Discord.js')
 exports.run = function(client, msg, args, guild) {
   if (msg.author.id !== '192372019378126849') return;
   var code = args.join(' ');

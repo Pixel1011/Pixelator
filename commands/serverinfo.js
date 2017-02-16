@@ -1,5 +1,11 @@
 exports.run = function(client, msg, args, guild) {
+if (msg.guild.type === "dm") {
+  return msg.channel.sendMessage('This command cannot be used in Dms');
+}
+
 offline = [];
+
+  var botCount = msg.guild.members.filter(m => m.user.bot == true && m.user.id != client.user.id).size + 1;
 
   for(member in msg.guild.members.array()) {
        user = msg.guild.members.array()[member];
@@ -46,7 +52,7 @@ offline = [];
       },
       {
         name: 'Members:',
-        value: `${msg.guild.members.size} (Offline: ${offline.length})`,
+        value: `${msg.guild.members.size} (Offline: ${offline.length}) (Bots: ${botCount})`,
         inline: true
       },
       {

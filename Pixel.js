@@ -4,6 +4,38 @@ const settings = require('./settings.json');
 const chalk = require('chalk');
 require('./util/eventLoader')(client);
 
+client.on('guildCreate', guild => {
+  var testChannel = client.channels.get('257924189690789888');
+
+  if (testChannel) {
+    let botCount = guild.members.filter(m => m.user.bot == true && m.user.id != client.user.id).size + 1;
+    let embedData = {
+      color:0x09f969 ,
+      title: `Guild Create: ${guild.name} (ID: ${guild.id})`,
+      description: `Owner: ${guild.owner.user.username}#${guild.owner.user.discriminator} (ID: ${guild.owner.id})
+      Members: ${guild.memberCount}
+      Bots: ${botCount} (${Math.floor((botCount/guild.memberCount)*100)}%)`,
+      footer: {
+        text: `Now in ${client.guilds.size} guilds.`
+      }
+    };
+    testChannel.sendMessage('', { embed: embedData });
+  }
+});
+
+client.on('guildDelete', guild => {
+  var testChannel = client.channels.get('257924189690789888');
+  let embedData = {
+    color:0x09f969,
+    title: `Guild Delete: ${guild.name} (ID: ${guild.id})`,
+    description: `Owner: ${guild.owner.user.username}#${guild.owner.user.discriminator} (ID: ${guild.owner.id})`,
+    footer: {
+      text: `Now in ${client.guilds.size} guilds.`
+    }
+  };
+  testChannel.sendMessage('', { embed: embedData });
+});
+
 var reload = (msg, cmd) => {
   delete require.cache[require.resolve('./commands/' + cmd)];
   try {
