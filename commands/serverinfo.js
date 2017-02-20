@@ -1,10 +1,39 @@
+const moment = require('moment-timezone');
+function humanizeDuration(eventDuration) {
+
+  var eventMDuration = moment.duration(Number(eventDuration), 'seconds');
+  var eventDurationString = "";
+
+  if (eventMDuration.years() > 0) {
+    var years = moment.duration(eventMDuration.years(), 'years').years();
+    eventDurationString += " " + years + (years != 1 ? " years" : " year");
+  }
+  if (eventMDuration.months() > 0) {
+    var months = moment.duration(eventMDuration.months(), 'months').months();
+    eventDurationString += " " + months + (months != 1 ? " months" : " month");
+  }
+  if (eventMDuration.days() > 0) {
+    var days = moment.duration(eventMDuration.days(), 'days').days();
+    eventDurationString += " " + days + (days != 1 ? " days" : " day");
+  }
+  if (eventMDuration.hours() > 0) {
+    var hours = moment.duration(eventMDuration.hours(), 'hours').hours();
+    eventDurationString += " " + hours + (hours != 1 ? " hours" : " hour");
+  }
+  if (eventMDuration.minutes() > 0) {
+    var minutes = moment.duration(eventMDuration.minutes(), 'minutes').minutes();
+    eventDurationString += " " + minutes + (minutes != 1 ? " minutes" : " minute");
+  }
+  return eventDurationString.trim();
+};
+
 exports.run = function(client, msg, args, guild) {
 if (msg.guild.type === "dm") {
   return msg.channel.sendMessage('This command cannot be used in Dms');
 }
 
 offline = [];
-
+  var guildCreated = moment.unix(guild.createdTimestamp/1000);
   var botCount = msg.guild.members.filter(m => m.user.bot == true && m.user.id != client.user.id).size + 1;
 
   for(member in msg.guild.members.array()) {
@@ -42,7 +71,7 @@ offline = [];
       },
       {
         name: 'Creation Date:',
-        value: msg.guild.createdAt,
+        value: `${humanizeDuration(moment().diff(guildCreated, 'seconds'))} ago (${guildCreated.tz('GMT').format("MMMM Do YYYY, h:mm a z")})`,
         inline: true
       },
       {

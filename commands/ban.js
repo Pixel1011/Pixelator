@@ -1,5 +1,10 @@
-exports.run = function(client, msg) {
+
+const Discord = require('discord.js');
+exports.run = function(client, msg, args) {
   let modRole = msg.guild.roles.find('name', 'Bot Controller');
+  let reason = args.slice(1).join(' ');
+  let user = msg.mentions.users.first();
+  let modlog = msg.guild.channels.find('name', 'modlog');
   if(!msg.member.roles.has(modRole.id)) {
     return msg.reply(':no_entry_sign: You Must Have The Role ``Bot Controller`` To Use This Command!');
   }
@@ -8,12 +13,27 @@ exports.run = function(client, msg) {
   }
   let banMember = msg.guild.member(msg.mentions.users.first());
   if(!banMember) {
-    return msg.reply('Who Is That? I Dont See That Player');
+    return msg.reply('That user seems invalid');
   }
-  if(!msg.guild.member(bot.user).hasPermission('BAN_MEMBERS')) {
+  if (reason.length < 1){
+    return msg.reply('You must supply a reason for the ban.');
+  }
+  if(!msg.guild.member(client.user).hasPermission('BAN_MEMBERS')) {
+    return msg.reply('I dont have the permissions (BAN_MEMBER) to do this');
+  }
+  const embed = new Discord.RichEmbed()
+    .setColor(3447003)
+    .setTimestamp()
+    .addField('Action:', 'Ban', true)
+    .addField('Reason:', `${reason}`, true)
+    .addField('User:', `${user.username}#${user.discriminator}`, true)
+    .addField('Moderator:', `${msg.author.username}#${msg.author.discriminator}`, true);
+
+  if(!msg.guild.member(client.user).hasPermission('BAN_MEMBERS')) {
     return msg.reply('I dont have the permissions (BAN_MEMBER) to do this');
   }
   banMember.ban().then(member => {
-    msg.reply(`:white_check_mark:${member.user.username} was succesfully Banned`);
+    client.channels.get(modlog.id).sendEmbed(embed);
+    msg.reply(`:white_check_mark: ${member.user.username} was succesfully Banned`);
   });
 };
