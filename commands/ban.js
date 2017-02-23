@@ -12,7 +12,7 @@ exports.run = function(client, msg, args) {
     return msg.reply('no_entry_sign: Please mention a user to ban');
   }
   let banMember = msg.guild.member(msg.mentions.users.first());
-  if(!banMember) {
+  if(!user) {
     return msg.reply('That user seems invalid');
   }
   if (reason.length < 1){

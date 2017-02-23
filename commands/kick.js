@@ -14,7 +14,7 @@ exports.run = function(client, msg, args) {
     return msg.reply('Please mention a user to kick');
   }
   let kickMember = msg.guild.member(msg.mentions.users.first());
-  if(!kickMember) {
+  if(!user) {
     return msg.reply('That user does not seem valid');
   }
   if (reason.length < 1){

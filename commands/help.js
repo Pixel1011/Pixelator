@@ -10,7 +10,7 @@ exports.run = function(client, msg) {
 
       {
         name: 'Commands',
-        value: 'add\nauthor\nban\ndivide\ngoogle\nhelp\nhi\ninvite\nkick\nmultiply\nmurder\nnuke\nping\npurge\nreload\nrestart\nserverinfo\nstats\nsubtract\nvjoin\nvleave',
+        value: 'add\nauthor\nban\ndivide\ngoogle\nhelp\nhi\ninvite\nkick\nmultiply\nmurder\nnuke\nping\npurge\nreload\nrestart\nserverinfo\nstats\nsubtract\nvjoin\nvleave\nmute\nroll\nuserinfo',
         inline: true
       },
       {

@@ -91,7 +91,7 @@ offline = [];
       },
       {
         name: 'Channels',
-        value: msg.guild.channels.size,
+        value: `${msg.guild.channels.size}(${msg.guild.channels.filter(c => c.type=='text').size} text, ${msg.guild.channels.filter(c => c.type=='voice').size} voice)`,
         inline: true
       },
       {
