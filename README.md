@@ -5,8 +5,9 @@ files that you need to create are
 settings.json
 Example:
 
-{
-  "ownerid": "Your ID",
-  "prefix": "Your Prefix",
-  "token": "Your Bot Token"
-}
+#{
+#  "ownerid": "Your ID",
+#  "dbots": "Your Discord Bots Token",
+#  "prefix": "Your Prefix",
+#  "token": "Your Bot Token"
+#}
