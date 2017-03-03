@@ -1,6 +1,6 @@
 exports.run = function(client, msg) {
   var TChannel = msg.client.channels.get('275064558740307969');
-  var ideas = 'userinfo\nbotinfo\nban/kick logging\nembed info command';
+  var ideas = 'no ideas rip';
   if (msg.author.id == '192372019378126849') {
     var embed = {
       title: 'things',

@@ -12,31 +12,21 @@ exports.run = (client, msg, args) => {
     return msg.reply('I cannot find a modlog channel');
   }
 
-  msg.guild.channels.forEach(c => {
-    if (c.type == 'text') {
-      c.overwritePermissions(muteRole, { SEND_MESSAGES: false });
-    }
-    else if (c.type == 'voice') {
-      c.overwritePermissions(muteRole, { SPEAK: false });
-    }
-  });
-
   if (!muteRole) {
     return msg.reply('I cannot find a Muted role');
   }
 
-  if (msg.mentions.users.size < 1) {
-    return msg.reply('You must mention someone to mute them.');
-  }
-
   if (reason.length < 1){
-    return msg.reply('You must supply a reason for the mute.');
+    return msg.reply('You must supply a reason for the UnMute.');
   }
 
+  if (msg.mentions.users.size < 1) {
+    return msg.reply('You must mention someone to UnMute them.');
+  }
   const embed = new Discord.RichEmbed()
     .setColor(3447003)
     .setTimestamp()
-    .addField('Action:', 'Mute', true)
+    .addField('Action:', 'UnMute', true)
     .addField('Reason:', `${reason}`, true)
     .addField('User:', `${user.username}#${user.discriminator}`, true)
     .addField('Moderator:', `${msg.author.username}#${msg.author.discriminator}`, true);
@@ -46,13 +36,12 @@ exports.run = (client, msg, args) => {
   }
 
   if (msg.guild.member(user).roles.has(muteRole.id)) {
-    msg.channel.sendMessage(`${user} Cannot Be Muted Again`)
-  } else {
-    msg.guild.member(user).addRole(muteRole).then(() => {
-      msg.channel.sendMessage(`Succesfully Muted ${user}`);
-      user.sendMessage(`You Have Been Muted From ${msg.guild.name} For ${reason}`);
+    msg.guild.member(user).removeRole(muteRole).then(() => {
+      msg.channel.sendMessage(`Succesfully Unmuted ${user}`);
+      user.sendMessage(`You Have Been UnMuted From ${msg.guild.name} For ${reason}`);
       client.channels.get(modlog.id).sendEmbed(embed);
     });
+  } else {
+    return msg.channel.sendMessage(`${user} Cannot Be Unmuted`);
   }
-
 };

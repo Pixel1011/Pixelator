@@ -45,6 +45,11 @@ offline = [];
     return msg.reply("An error ocurred, please try again");
   }
 
+  var emojis = msg.guild.emojis.map(e => e.name).join(', ');
+  if(!emojis){
+    emojis = 'None';
+  }
+
   var embed = {
     title: `Info about ${msg.guild.name}`,
     color: 0x00f731,
@@ -70,11 +75,6 @@ offline = [];
         inline: true
       },
       {
-        name: 'Creation Date:',
-        value: `${humanizeDuration(moment().diff(guildCreated, 'seconds'))} ago (${guildCreated.tz('GMT').format("MMMM Do YYYY, h:mm a z")})`,
-        inline: true
-      },
-      {
         name: 'Region:',
         value: msg.guild.region,
         inline: true
@@ -92,6 +92,16 @@ offline = [];
       {
         name: 'Channels',
         value: `${msg.guild.channels.size}(${msg.guild.channels.filter(c => c.type=='text').size} text, ${msg.guild.channels.filter(c => c.type=='voice').size} voice)`,
+        inline: true
+      },
+      {
+        name: 'Emojis:',
+        value: `${emojis}`,
+        inline: true
+      },
+      {
+        name: 'Creation Date:',
+        value: `${humanizeDuration(moment().diff(guildCreated, 'seconds'))} ago (${guildCreated.tz('GMT').format("MMMM Do YYYY, h:mm a z")})`,
         inline: true
       },
       {

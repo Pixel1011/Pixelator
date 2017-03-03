@@ -32,6 +32,7 @@ exports.run = function(client, msg, args) {
   if(!msg.guild.member(client.user).hasPermission('BAN_MEMBERS')) {
     return msg.reply('I dont have the permissions (BAN_MEMBER) to do this');
   }
+  user.sendMessage(`You Have Been Banned From ${msg.guild.name} For ${reason}`);
   banMember.ban().then(member => {
     client.channels.get(modlog.id).sendEmbed(embed);
     msg.reply(`:white_check_mark: ${member.user.username} was succesfully Banned`);

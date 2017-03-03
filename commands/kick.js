@@ -31,6 +31,7 @@ exports.run = function(client, msg, args) {
   if(!msg.guild.member('253915933276504064').hasPermission('KICK_MEMBERS')) {
     return msg.reply('I don\'t have the permissions (KICK_MEMBER) to do this.');
   }
+  user.sendMessage(`You Have Been Kicked From ${msg.guild.name} For ${reason}`);
   kickMember.kick().then(member => {
     client.channels.get(modlog.id).sendEmbed(embed);
     msg.reply(`:white_check_mark: ${member.user.username} was succesfully kicked.`);

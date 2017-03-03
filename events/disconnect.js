@@ -1,4 +1,4 @@
 module.exports = client => {
-  console.log(`You have been disconnected at ${new Date()} i will now kys`);
+  console.log(`You have been disconnected at ${new Date()}`);
   process.exit();
 };
