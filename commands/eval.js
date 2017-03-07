@@ -1,4 +1,4 @@
-const Discord = require('Discord.js')
+const Discord = require('discord.js')
 exports.run = function(client, msg, args, guild) {
   if (msg.author.id !== '192372019378126849') {
     return msg.channel.sendMessage('Only The Bot Owner Can Use This Command!');
@@ -14,7 +14,8 @@ exports.run = function(client, msg, args, guild) {
   }
   var embed = {
     color:0xa0d4ff,
-    description:`**Output:** ${res}`
+    description:`**Input:** ${code}
+    **Output:** ${res}`
   };
   msg.channel.sendMessage('', {embed: embed});
 };

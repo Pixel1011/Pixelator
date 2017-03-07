@@ -1,6 +1,6 @@
 module.exports = client => {
   const request = require('request');
-  const settings = require('./settings.json');
+  const config = require('../config.json');
   var requestBody = {
     server_count: client.guilds.size
   };
@@ -10,7 +10,7 @@ module.exports = client => {
     body: requestBody,
     json: true,
     headers: {
-      Authorization: settings.dbots
+      Authorization: config.dbots
     }
   });
   var prefix = '`';

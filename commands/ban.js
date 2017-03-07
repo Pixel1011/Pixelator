@@ -5,11 +5,20 @@ exports.run = function(client, msg, args) {
   let reason = args.slice(1).join(' ');
   let user = msg.mentions.users.first();
   let modlog = msg.guild.channels.find('name', 'modlog');
+  if(!modRole) {
+    if(!msg.guild.member(client.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) {
+      msg.channel.sendMessage('I need The Permission Manage Roles To Create The Role Bot Controller');
+    }
+    msg.guild.createRole({name: 'Bot Controller'}).then(msg.channel.sendMessage('I Have Created A Role Called `Bot Controller` Because There Was No Role Called `Bot Controller`'));
+  }
   if(!msg.member.roles.has(modRole.id)) {
     return msg.reply(':no_entry_sign: You Must Have The Role ``Bot Controller`` To Use This Command!');
   }
   if(msg.mentions.users.size === 0) {
     return msg.reply('no_entry_sign: Please mention a user to ban');
+  }
+  if (!modlog) {
+    return msg.reply('I cannot find a modlog channel');
   }
   let banMember = msg.guild.member(msg.mentions.users.first());
   if(!user) {

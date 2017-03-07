@@ -1,12 +1,14 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const settings = require('./settings.json');
+const config = require('./config.json');
 const chalk = require('chalk');
 require('./util/eventLoader')(client);
 
 client.on('guildCreate', guild => {
   var testChannel = client.channels.get('257924189690789888');
-
+  var prefix = '`';
+  client.user.setGame(`${prefix}help | On ${client.guilds.size} Servers! | Working On Updates!`);
+  //guild.defaultChannel.sendMessage('Thanks for inviting Me! Please Join My server If You Have Any Questions https://discord.gg/7xmdtZu');
   if (testChannel) {
     let botCount = guild.members.filter(m => m.user.bot == true && m.user.id != client.user.id).size + 1;
     let embedData = {
@@ -24,6 +26,8 @@ client.on('guildCreate', guild => {
 });
 
 client.on('guildDelete', guild => {
+  var prefix = '`';
+  client.user.setGame(`${prefix}help | On ${client.guilds.size} Servers! | Working On Updates!`);
   var testChannel = client.channels.get('257924189690789888');
   let embedData = {
     color:0x09f969,
@@ -61,4 +65,4 @@ client.on('error', e => {
   console.log(chalk.bgRed(e.replace(regToken, 'that was redacted')));
 });
 
-client.login(settings.token);
+client.login(config.token);
