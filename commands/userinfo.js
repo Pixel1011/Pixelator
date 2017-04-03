@@ -2,23 +2,27 @@ const Discord = require('discord.js');
 
 exports.run = (client, msg) => {
   const target = msg.mentions.users.first() || msg.author;
-  var color = '0x00f731';
+  var color = 0x5d5f63;
+  var onlineStatus = target.presence.status;
+  var streaming = false;
 
-  if(target.presence.status == 'online') {
-    color = '0x00f731';
+  if (target.presence.game) {
+    if (target.presence.game.type == 1) streaming = true;
   }
-  if(target.presence.status == 'idle') {
-    color = '0xffc300';
+
+  if (onlineStatus == 'online' && !streaming) {
+    color = 0x00f731;
+  } else if (streaming) {
+    color = 0x00f731;
+  } else if (onlineStatus == 'idle') {
+    color = 0xffc300;
+  } else if (onlineStatus == 'dnd') {
+    color = 0xdb0000;
   }
-  if(target.presence.status == 'dnd') {
-    color = '0xdb0000';
-  }
-  if(target.presence.status == 'invisible') {
-    color = '0xc1bbba';
-  }
+
   const userInfo = new Discord.RichEmbed()
     .setAuthor(`${target.username}`, target.avatarURL)
-    .setColor(`${color}`)
+    .setColor(color)
     .addField('ID', `${target.id}`, true)
     .addField('Name', `${target.username}#${target.discriminator}`, true)
     .addField('Status', `${target.presence.status}`, true)

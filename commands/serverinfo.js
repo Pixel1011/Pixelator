@@ -1,38 +1,13 @@
 const moment = require('moment-timezone');
-function humanizeDuration(eventDuration) {
-
-  var eventMDuration = moment.duration(Number(eventDuration), 'seconds');
-  var eventDurationString = "";
-
-  if (eventMDuration.years() > 0) {
-    var years = moment.duration(eventMDuration.years(), 'years').years();
-    eventDurationString += " " + years + (years != 1 ? " years" : " year");
-  }
-  if (eventMDuration.months() > 0) {
-    var months = moment.duration(eventMDuration.months(), 'months').months();
-    eventDurationString += " " + months + (months != 1 ? " months" : " month");
-  }
-  if (eventMDuration.days() > 0) {
-    var days = moment.duration(eventMDuration.days(), 'days').days();
-    eventDurationString += " " + days + (days != 1 ? " days" : " day");
-  }
-  if (eventMDuration.hours() > 0) {
-    var hours = moment.duration(eventMDuration.hours(), 'hours').hours();
-    eventDurationString += " " + hours + (hours != 1 ? " hours" : " hour");
-  }
-  if (eventMDuration.minutes() > 0) {
-    var minutes = moment.duration(eventMDuration.minutes(), 'minutes').minutes();
-    eventDurationString += " " + minutes + (minutes != 1 ? " minutes" : " minute");
-  }
-  return eventDurationString.trim();
-};
+const humanizeDuration = require('../functions/humanizeDuration.js');
+const Discord = require('discord.js');
 
 exports.run = function(client, msg, args, guild) {
-if (msg.guild.type === "dm") {
+if (!msg.guild) {
   return msg.channel.sendMessage('This command cannot be used in Dms');
 }
 
-offline = [];
+  var offline = [];
   var guildCreated = moment.unix(guild.createdTimestamp/1000);
   var botCount = msg.guild.members.filter(m => m.user.bot == true && m.user.id != client.user.id).size + 1;
 
@@ -50,68 +25,34 @@ offline = [];
     emojis = 'None';
   }
 
-  var embed = {
-    title: `Info about ${msg.guild.name}`,
-    color: 0x00f731,
-    thumbnail: {
-      url: msg.guild.iconURL
-    },
+  var veri = msg.guild.verificationLevel;
+  if(veri == '0') {
+    veri = 'None';
+  } else if (veri == '1') {
+    veri = 'Low';
+  } else if (veri == '2') {
+    veri = 'Medium';
+  } else if (veri == '3') {
+    veri = '(╯°□°）╯︵ ┻━┻';
+  }
 
-    fields: [
 
-      {
-        name: 'Name:',
-        value: msg.guild.name,
-        inline: true
-      },
-      {
-        name: 'ID:',
-        value: msg.guild.id,
-        inline: true
-      },
-      {
-        name: 'Default Channel:',
-        value: `#${msg.guild.defaultChannel.name}`,
-        inline: true
-      },
-      {
-        name: 'Region:',
-        value: msg.guild.region,
-        inline: true
-      },
-      {
-        name: 'Members:',
-        value: `${msg.guild.members.size} (Offline: ${offline.length}) (Bots: ${botCount})`,
-        inline: true
-      },
-      {
-        name: 'Owner:',
-        value: `${msg.guild.owner.user.username}#${msg.guild.owner.user.discriminator}`,
-        inline: true
-      },
-      {
-        name: 'Channels',
-        value: `${msg.guild.channels.size}(${msg.guild.channels.filter(c => c.type=='text').size} text, ${msg.guild.channels.filter(c => c.type=='voice').size} voice)`,
-        inline: true
-      },
-      {
-        name: 'Emojis:',
-        value: `${emojis}`,
-        inline: true
-      },
-      {
-        name: 'Creation Date:',
-        value: `${humanizeDuration(moment().diff(guildCreated, 'seconds'))} ago (${guildCreated.tz('GMT').format("MMMM Do YYYY, h:mm a z")})`,
-        inline: true
-      },
-      {
-        name: 'Roles:',
-        value: msg.guild.roles.map(r=>r.name).join(', '),
-        inline: true
-      },
-    ]
+  const embed = new Discord.RichEmbed();
+  embed.setTitle(`Info about ${msg.guild.name}`);
+  embed.setColor(0x00f731);
+  embed.setThumbnail(msg.guild.iconURL);
+  embed.addField('Name:', msg.guild.name, true);
+  embed.addField('ID', msg.guild.id, true);
+  embed.addField('Default Channel:', `#${msg.guild.defaultChannel.name}`, true);
+  embed.addField('Region:', msg.guild.region);
+  embed.addField('Verification Level:', veri, true);
+  embed.addField('Members:', `${msg.guild.members.size} (Offline: ${offline.length}) (Bots: ${botCount})`, true);
+  embed.addField('Owner:', `${msg.guild.owner.user.username}#${msg.guild.owner.user.discriminator}`, true);
+  embed.addField('Channels:',`${msg.guild.channels.size}(${msg.guild.channels.filter(c => c.type=='text').size} text, ${msg.guild.channels.filter(c => c.type=='voice').size} voice)`, true );
+  embed.addField('Emojis:', emojis, true);
+  embed.addField('Creation Date:', `${humanizeDuration(moment().diff(guildCreated, 'seconds'))} ago (${guildCreated.tz('GMT').format('MMMM Do YYYY, h:mm a z')})`);
+  embed.addField('Roles:', msg.guild.roles.map(r =>r.name).join(', '), true);
 
-  };
 
   msg.channel.sendEmbed(embed).then(msg => msg).catch(error => console.log(`AHH SERVERINFO!!!!!, ${error}`));
 };

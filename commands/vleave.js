@@ -6,6 +6,6 @@ exports.run = function(client, msg, ErrorChannel) {
     msg.channel.sendMessage('Leaving...').then(m => {
       voiceChan.leave();
       m.edit(`left ${voiceChan}`);
-    }).catch(error => ErrorChannel.sendMessage(`help command: ${error}`));
+    }).catch(error => ErrorChannel.sendMessage(`vleave command: ${error}`));
   }
 };
