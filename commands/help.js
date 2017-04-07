@@ -14,7 +14,7 @@ exports.run = function(client, msg, args) {
 
         {
           name: 'Commands',
-          value: 'add\nauthor\nban\ndivide\nlmgfty\nhelp\nhi\ninvite\nkick\nmultiply\nmurder\nnuke\nping\npurge\nreload\nrestart\nserverinfo\nstats\nsubtract\nvjoin\nvleave\nmute\nroll\nuserinfo\nbugreport\nplay\naddmusic\npause\nresume\nskip\nstop\nqueue\nurban\ngoogle\nwarn\nfindwarn\ndelwarn\nnp\ncat\nascii',
+          value: 'add\nauthor\nban\ndivide\nlmgtfy\nhelp\nhi\ninvite\nkick\nmultiply\nmurder\nnuke\nping\npurge\nreload\nrestart\nserverinfo\nstats\nsubtract\nvjoin\nvleave\nmute\nroll\nuserinfo\nbugreport\nplay\naddmusic\npause\nresume\nskip\nstop\nqueue\nurban\ngoogle\nwarn\nfindwarn\ndelwarn\nnp\ncat\nascii',
           inline: true
         },
         {
@@ -303,11 +303,11 @@ exports.run = function(client, msg, args) {
       };
       return msg.channel.sendEmbed(embed34);
     } else
-    if(cmd == 'lmgfty') {
+    if(cmd == 'lmgtfy') {
       var embed35 = {
-        title: 'Command: lmgfty',
-        description: `Description: Googles Things using lmgfty
-        usage: urban (word to define)`
+        title: 'Command: lmgtfy',
+        description: `Description: Googles Things using lmgtfy
+        usage: lmgtfy (word to search)`
       };
       return msg.channel.sendEmbed(embed35);
     } else

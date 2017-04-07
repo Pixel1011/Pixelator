@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 exports.run = function(client, msg, args) {
   let modRole = msg.guild.roles.find('name', 'Bot Controller');
   let reason = args.slice(1).join(' ');
+  let member = msg.guild.members.get(user.id);
   let user = msg.mentions.users.first();
   let modlog = msg.guild.channels.find('name', 'modlog');
   if (!msg.guild) {
@@ -38,7 +39,7 @@ exports.run = function(client, msg, args) {
   if(msg.author.id == user.id) {
     return msg.channel.sendMessage('You Cannot Ban Yourself');
   }
-  if (user.highestRole.position > msg.member.highestRole.position) {
+  if (member.highestRole.position > msg.member.highestRole.position) {
     return msg.channel.sendMessage('You Cannot kick A User Which Has A Higher Role Than You');
   }
   const embed = new Discord.RichEmbed()
